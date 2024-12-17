@@ -5,7 +5,7 @@ import 'firebase/compat/auth';
 
 
 const config = {
-   apiKey: "AIzaSyAr_huNaHhM0sPoplAJ40xDy_KQsK2UeyQ",
+  apiKey: "AIzaSyAr_huNaHhM0sPoplAJ40xDy_KQsK2UeyQ",
   authDomain: "instagram-892c9.firebaseapp.com",
   projectId: "instagram-892c9",
   storageBucket: "instagram-892c9.firebasestorage.app",

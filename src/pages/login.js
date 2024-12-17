@@ -12,7 +12,23 @@ const Login = () => {
 
    const isInvalid = password === "" || emailAddress === "";
 
-   const handleLogin = () => {};
+   const handleLogin = async (event) => {
+      event.preventDefault();
+      try {
+         await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+         navigate(ROUTES.DASHBOARD);
+      } catch (error) {
+         if (error.code === "auth/invalid-credential"){
+            setError('The email address or password is incorrect. Please try again.');
+         } else if (error.code === "auth/invalid-email") {
+            setError('Invalid email format.');
+         } else {
+            setError(error.message);
+         }
+         setEmailAddress('');
+         setPassword('');
+      }
+   };
 
    useEffect(() => {
       document.title = 'Login - Instagram';
@@ -41,14 +57,16 @@ const Login = () => {
                type='text' 
                placeholder='Email address' 
                className='text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2' 
-               onChange={({ target }) => setEmailAddress(target.value)} 
+               onChange={({ target }) => setEmailAddress(target.value)}
+               value={emailAddress}
             />
             <input 
                aria-label='Enter your password' 
                type='password' 
                placeholder='Password' 
                className='text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2' 
-               onChange={({ target }) => setPassword(target.value)} 
+               onChange={({ target }) => setPassword(target.value)}
+               value={password}
             />
 
             <button 

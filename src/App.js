@@ -7,7 +7,7 @@ const Login = lazy(() => import('./pages/login'));
 function App() {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<p>Loading...</p>}>
         <Routes>
           <Route path={ROUTES.LOGIN} element={<Login />} />
         </Routes>
