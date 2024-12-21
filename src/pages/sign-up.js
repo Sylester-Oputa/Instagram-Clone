@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import FirebaseContext from '../context/firebase';
 import * as ROUTES from '../constants/routes';
 import { doesUsernameExist } from '../services/firebase';
-import { collection } from 'firebase/firestore';
 
 const SignUp = () => {
    const navigate = useNavigate();
@@ -21,14 +20,13 @@ const SignUp = () => {
       const usernameExists = await doesUsernameExist(username);
       if(!usernameExists.length){
          try {
-            const createdUserResult = await firebase.auth().
-            createUserWithEmailAndPassword(emailAddress, password)
+            const createdUserResult = await firebase.auth().createUserWithEmailAndPassword(emailAddress, password)
             await createdUserResult.user.updateProfile({
                displayName: username
             })
 
             // firebase user collection
-            await firebase.firestore().collection('user').add({
+            await firebase.firestore().collection('users').add({
                userId: createdUserResult.user.uid,
                username: username.toLowerCase(),
                fullName,
