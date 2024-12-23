@@ -5,7 +5,6 @@ import UserContext from '../context/user'
 import * as ROUTES from '../constants/routes'
 import { IoHomeOutline } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
-import { CiLogin } from "react-icons/ci";
 
 const Header = () => {
 
@@ -27,7 +26,7 @@ const Header = () => {
             {user ? (
               <>
                 <Link to={ROUTES.DASHBOARD}>
-                  <IoHomeOutline title="Home" />
+                  <IoHomeOutline className='w-8 mr-6 text-black-light' title="Home" />
                 </Link>
                 <button 
                   type='button' 
@@ -35,7 +34,7 @@ const Header = () => {
                   onClick={() => firebase.auth().signOut()} 
                   onKeyDown={(event) => {if(event.key === 'Enter'){firebase.auth().signOut()}}}
                 >
-                  <CiLogout />
+                  <CiLogout className='w-8 mr-6 text-black-light' title='LogOut' />
                 </button>
                 <div className="flex items-center cursor-pointer">
                   <Link to={`/p/${user.displayName}`}>
@@ -45,7 +44,24 @@ const Header = () => {
               </>
             ) : (
               <>
-                <CiLogin />
+                <Link to={ROUTES.LOGIN}>
+                  <button 
+                    className='bg-blue-medium font-bold text-sm rounded text-white w-20 h-8' 
+                    type='button' 
+                    title="Login"
+                  >
+                    Login
+                  </button>
+                </Link>
+                <Link to={ROUTES.SIGN_UP}>
+                  <button 
+                    className='font-bold text-sm rounded text-blue-medium w-20 h-8' 
+                    type='button' 
+                    title='Sign Up'
+                  >
+                    Sign Up
+                  </button>
+                </Link>
               </>
             )}
           </div>

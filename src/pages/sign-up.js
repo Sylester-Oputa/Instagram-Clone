@@ -13,14 +13,14 @@ const SignUp = () => {
    const [ password, setPassword] = useState("");
    const [ error, setError] = useState("");
 
-   const isInvalid = username === "" || fullName ==="" || password === "" || emailAddress === "";
+   const isInvalid = password === "" || emailAddress === "";
 
    const handleSignUp = async (event) => {
       event.preventDefault();
       const usernameExists = await doesUsernameExist(username);
       if(!usernameExists.length){
          try {
-            const createdUserResult = await firebase.auth().createUserWithEmailAndPassword(emailAddress, password)
+            const createdUserResult = await firebase.auth().createUserWithEmailAndPassword(emailAddress, password);
             await createdUserResult.user.updateProfile({
                displayName: username
             })
@@ -33,8 +33,8 @@ const SignUp = () => {
                emailAddress: emailAddress.toLowerCase(),
                following: [],
                dateCreated: Date.now()
-            })
-            navigate(ROUTES.DASHBOARD)
+            });
+            navigate(ROUTES.DASHBOARD);
          
          } catch (error) {
             if (error.code === "auth/email-already-in-use"){
@@ -45,8 +45,7 @@ const SignUp = () => {
          }
             setFullName('');
             setEmailAddress('');
-            setPassword('');
-            setError(error.message);            
+            setPassword('');            
          } else {
             setError("This user already has an account. Try Log In");
       }
